@@ -43,7 +43,7 @@ node default {
   # Example:
   #   class { 'my_class': }
   file { '/etc/motd':
-    ensure => 'file'
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
