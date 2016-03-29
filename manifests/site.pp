@@ -44,6 +44,8 @@ node default {
   
   include users
   
+  include skeleton
+  
   #   class { 'my_class': }
   host { 'testing.puppetlabs.vm':
     ensure => present,
