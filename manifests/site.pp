@@ -44,6 +44,8 @@ node default {
   
   include users
   
+  include nginx
+  
   include skeleton
   
   include memcached
