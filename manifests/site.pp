@@ -39,18 +39,21 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node default {
-  # This is where you can declare classes for all nodes.
-  # Example:
-  #   class { 'my_class': }
+  ## Declare the users class (Lab 9.2)
+  include users
+  
+  ## HOMEWORK - Hot entry (Lab 7.3)
   host { 'testing.puppetlabs.vm':
     ensure => present,
     ip     => '127.0.0.1',
   }
   
+  ## Lab 7.2 - Execs
   exec { 'cowsay "Welcome to my machine" > /etc/motd':
     path    => '/usr/local/bin',
     creates => '/etc/motd',
   }
   
+  ## Notify that came with the repo
   notify { "Hello, my name is ${::hostname}": }
 }
