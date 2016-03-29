@@ -50,4 +50,8 @@ node default {
           mode => '0644',
           content => "Exciting!\n",
   }
+  host { 'testing.puppetlabs.vm' :
+    ensure => present,
+    ip => 127.0.0.1,
+  }
 }
