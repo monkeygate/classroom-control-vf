@@ -46,12 +46,11 @@ node default {
     ensure => present,
     ip     => '127.0.0.1',
   }
-  file { '/etc/motd':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    content => "an interesting sentence describing what you learned today",
+  
+  exec { 'cowsay "Welcome to my machine" > /etc/motd':
+    path    => '/usr/local/bin',
+    creates => '/etc/motd',
   }
+  
   notify { "Hello, my name is ${::hostname}": }
 }
