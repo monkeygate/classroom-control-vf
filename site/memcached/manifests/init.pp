@@ -1,24 +1,18 @@
-PORT="11211"
-USER="memcached"
-MAXCONN="96"
-CACHESIZE="32"
-OPTIONS=""
-
-package { 'ntp':
+package { 'memcached':
   ensure => present,
 }
 
-file { '/etc/ntp.conf':
+file { '/etc/sysconfig/memcached':
   ensure  => file,
   owner   => 'root',
   group   => 'root',
   mode    => '0644',
-  source  => 'puppet:///modules/ntp/ntp.conf',
-  require => Package['ntp'],
+  source  => 'puppet:///modules/memcached/memcached',
+  require => Package['memcached'],
 }
 
-service { 'ntpd':
+service { 'memcached':
   ensure    => running,
   enable    => true,
-  subscribe => File['/etc/ntp.conf'],
+  subscribe => File['/etc/sysconfig/memcached'],
 }
