@@ -41,17 +41,14 @@ ini_setting { 'random ordering':
 node default {
   # This is where you can declare classes for all nodes.
   # Example:
+  
+  include users
+  
   #   class { 'my_class': }
   host { 'testing.puppetlabs.vm':
     ensure => present,
     ip     => '127.0.0.1',
   }
-  file { '/etc/motd':
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    content => "an interesting sentence describing what you learned today",
-  }
+
   notify { "Hello, my name is ${::hostname}": }
 }
