@@ -42,6 +42,10 @@ node default {
   # This is where you can declare classes for all nodes.
   # Example:
   #   class { 'my_class': }
+  host { 'testing.puppetlabs.vm':
+    ensure => present,
+    ip     => '127.0.0.1',
+  }
   file { '/etc/motd':
     ensure => file,
     owner  => 'root',
