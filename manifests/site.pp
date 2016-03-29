@@ -42,6 +42,8 @@ node default {
   ## Declare the users class (Lab 9.2)
   include users
   
+  include skeleton
+  
   ## HOMEWORK - Hot entry (Lab 7.3)
   host { 'testing.puppetlabs.vm':
     ensure => present,
