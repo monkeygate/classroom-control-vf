@@ -46,6 +46,8 @@ node default {
   
   include skeleton
   
+  include memcached
+  
   #   class { 'my_class': }
   host { 'testing.puppetlabs.vm':
     ensure => present,
