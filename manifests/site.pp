@@ -60,7 +60,7 @@ node default {
   
   
   
-  if $::virtual = 'virtual' {
+  if $::virtual == 'virtual' {
   notify { 'a': }
 } else {
   notify { 'b': }
