@@ -44,6 +44,8 @@ node default {
   
   include users
   
+  include aliases
+  
   include nginx
   
   include skeleton
