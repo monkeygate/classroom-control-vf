@@ -3,8 +3,8 @@ define users::managed_user (
     $homedir     = '/var/log/httpd',
     $sshdir     = '/var/ssh',
  ){
-  user { "${title}":
-    ensure  => user,
+  user { $title:
+    ensure  => present,
     homedir   => $homedir,
     sshdir   => $sshdir,
   }
