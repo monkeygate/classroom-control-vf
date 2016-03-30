@@ -1,20 +1,25 @@
 class nginx {
+
+  $www_path = '/var/www'
+  $etc_nginx_path = '/etc/nginx'
+  $modules_nginx_path = '/modules/nginx'
+  
   package { 'nginx':
     ensure => installed,
   }
   
-  file { '/var/www':
+  file { "${www_path}":
     ensure  => directory,
   }
   
-  file { '/var/www/index.html':
+  file { "${www_path}/index.html":
     ensure  => file,
-    source => 'puppet:///modules/nginx/index.html',
+    source => "puppet://${modules_nginx_path}/index.html",
   }
     
-  file { '/etc/nginx/nginx.conf':
+  file { "${etc_nginx_path}/nginx.conf":
     ensure  => file,
-    source  => 'puppet:///modules/nginx/nginx.conf',
+    source  => "puppet://${modules_nginx_path}/nginx.conf",
     require => Package['nginx'],
     notify => Service['nginx'],
   }
@@ -22,6 +27,6 @@ class nginx {
   service { 'nginx':
     ensure    => running,
     enable    => true,
-    # subscribe => File['/etc/nginx/nginx.conf'],
+    # subscribe => File["${etc_nginx_path}/nginx.conf"],
   }
 }
