@@ -63,7 +63,7 @@ node default {
   if $::virtual == 'virtual' {
   notify { "a ${::virtual}": }
 } else {
-  notify { "b ${::virtual}": }
+  notify { capitalize("b ${::virtual}"): }
 }
 
   
