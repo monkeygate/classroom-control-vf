@@ -11,13 +11,6 @@ class nginx {
     ensure  => file,
     source => 'puppet:///modules/nginx/index.html',
   }
-  
-  file { '/etc/nginx/nginx.conf':
-    ensure  => file,
-    source => 'puppet:///modules/nginx/nginx/nginx.conf',
-    require => Package['nginx'],
-    notify => Service['nginx'],    
-  }
     
   file { '/etc/nginx/nginx.conf':
     ensure  => file,
