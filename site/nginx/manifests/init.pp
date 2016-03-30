@@ -12,7 +12,7 @@ class nginx {
       $config_directory = 'C:/ProgramData/nginx'
     }
     default: {
-        fail("Operating system ${::osfamily} is not supported.")
+        fail("Operating system ${::osfamily} iz not supported.")
     }
   }
 
