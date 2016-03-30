@@ -58,6 +58,13 @@ node default {
 
   notify { "Hello, my name is ${::hostname}": }
   
-  notify {::virtual}
+  
+  
+  if $::virtual = 'virtual' {
+  notify { 'a': }
+} else {
+  notify { 'b': }
+}
+
   
 }
