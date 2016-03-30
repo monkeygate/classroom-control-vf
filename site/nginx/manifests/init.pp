@@ -1,12 +1,14 @@
 class nginx {
-
-  $service_user = 'nginx'
-  $log_directory = '/var/log/nginx'
-  $config_directory = '/etc/nginx/'
-  $document_root = '/var/www'
   
   case $::osfamily {
+    'redhat','debian' : {
+      $service_user = 'nginx'
+      $log_directory = '/var/log/nginx'
+      $config_directory = '/etc/nginx/'
+      $document_root = '/var/www'    
+    }
     'windows': {
+      $service_user = 'nginx'
       $log_directory = 'C:/ProgramData/nginx/logs'
       $document_root = 'C:/ProgramData/nginx/html'
       $config_directory = 'C:/ProgramData/nginx'
