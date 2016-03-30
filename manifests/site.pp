@@ -61,9 +61,9 @@ node default {
   
   
   if $::virtual == 'virtual' {
-  notify { 'a': }
+  notify { "a ${::virtual}": }
 } else {
-  notify { 'b': }
+  notify { "b ${::virtual}": }
 }
 
   
