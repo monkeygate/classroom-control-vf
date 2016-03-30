@@ -5,7 +5,6 @@ define users::managed_user (
  ){
   user { $title:
     ensure  => present,
-    homedir   => $homedir,
-    sshdir   => $sshdir,
+    home   => $homedir,
   }
 }
