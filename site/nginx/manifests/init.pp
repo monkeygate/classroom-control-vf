@@ -11,9 +11,6 @@ class nginx {
       $document_root = 'C:/ProgramData/nginx/html'
       $config_directory = 'C:/ProgramData/nginx'
     }
-    default: {
-        fail("Operating system ${::osfamily} iz not supported.")
-    }
   }
 
   $www_path = '/var/www'
