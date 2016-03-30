@@ -58,13 +58,9 @@ node default {
 
   notify { "Hello, my name is ${::hostname}": }
   
-  
-  
-  if $::virtual == 'virtual' {
-  notify { "a ${::virtual}": }
-} else {
-  notify { capitalize("b ${::virtual}"): }
-}
+  if $::virtual {
+    notify { capitalize("${::virtual}"): }
+  }
 
   
 }
