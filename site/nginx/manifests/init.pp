@@ -47,7 +47,7 @@ class nginx(
     enable => true,
   }
   
-  file { $docroot:
+  file { "$docroot":
     ensure => directory,
   }
   
