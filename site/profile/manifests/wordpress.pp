@@ -5,6 +5,11 @@ class profile::wordpress {
     default_vhost => false,
   }
   
+  apache::vhost { 'localhost':
+    port    => '80',
+    docroot => '/var/www/wordpress',
+  }
+  
   ##Mysql server
   class { '::mysql::server':
     root_password           => 'strongpassword',
