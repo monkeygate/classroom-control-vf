@@ -12,6 +12,8 @@ class profile::wordpress {
   class {'::wordpress':
     wp_owner => 'wordpress',
     wp_group => 'wordpress',
+    proxy_host => 'http://proxy-us.intel.com',
+    proxy_port => '911',
     db_user        => 'wordpress',
     db_password    => 'strongpassword2',    
     install_dir => '/var/www/wordpress',
