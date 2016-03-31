@@ -10,6 +10,10 @@ class profile::wordpress {
     docroot => '/var/www/wordpress',
   }
   
+  apache::mod::php { 'localhost':
+  #
+  }
+  
   ##Mysql server
   class { '::mysql::server':
     root_password           => 'strongpassword',
