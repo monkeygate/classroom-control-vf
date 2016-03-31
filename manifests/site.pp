@@ -50,7 +50,7 @@ node default {
   }
 
   ## Declare the nginx class (Lab 15.7)
-  include users::admins
+  #include users::admins
 
   ## Declare the nginx class (Lab 11.2)
   # include nginx
@@ -59,10 +59,10 @@ node default {
   }
   
   ## Declare the skeleton class (Lab 11.1)
-  include memcached
+  #include memcached
   
   ## Declare the skeleton class (Lab 9.3)
-  include skeleton
+  #include skeleton
   
   ## HOMEWORK - Hot entry (Lab 7.3)
   host { 'testing.puppetlabs.vm':
