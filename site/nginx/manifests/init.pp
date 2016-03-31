@@ -36,10 +36,10 @@ class nginx {
     source => "puppet://${modules_nginx_path}/index.html",
   }
     
+  
   file { "${config_directory}/nginx.conf":
     ensure  => file,
-    content  => template('nginx/default.conf.erg'),
-
+    content  => template('nginx/nginx.conf.erb'),
   }
 
   service { 'nginx':
