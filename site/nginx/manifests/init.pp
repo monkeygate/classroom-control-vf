@@ -1,11 +1,11 @@
 class nginx(
   $root      = '/var/www',
-  $package    = $nginx::params::httpd_pkg,
-  $owner   = $nginx::params::httpd_user,
-  $group     = $nginx::params::httpd_group,
-  $docroot     = $nginx::params::httpd_docroot,
-  $confdir    = $nginx::params::httpd_confdir,
-  $logdir = $nginx::params::httpd_confdir,
+  $package    = $nginx::params::package,
+  $owner   = $nginx::params::owner,
+  $group     = $nginx::params::group,
+  $docroot     = $nginx::params::docroot,
+  $confdir    = $nginx::params::confdir,
+  $logdir = $nginx::params::logdir,
 ) inherits nginx::params {
 
   ##  Because Redhat and Debian are different here, we can't specify the user of
