@@ -1,4 +1,9 @@
 class profile::wordpress {
+
+  ##apache
+  class { 'apache':
+    default_vhost => false,
+  }
   
   ##Mysql server
   class { '::mysql::server':
