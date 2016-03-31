@@ -1,22 +1,12 @@
-class nginx(
-  $root      = '/var/www',
-  $package    = $nginx::params::package,
+class nginx (
+  $package = $nginx::params::package,
   $owner   = $nginx::params::owner,
-  $group     = $nginx::params::group,
-  $docroot     = $nginx::params::docroot,
-  $confdir    = $nginx::params::confdir,
-  $logdir = $nginx::params::logdir,
+  $group   = $nginx::params::group,
+  $confdir = $nginx::params::confdir,
+  $logdir  = $nginx::params::logdir,
+  $docroot = $nginx::params::docroot,
+  $root    = $nginx::params::root,
 ) inherits nginx::params {
-
-  ##  Because Redhat and Debian are different here, we can't specify the user of
-  ## of the nginx service in the big case statement above. Thus we have the
-  ## selector here...
-  $user = $::osfamily ? {
-    'redhat'  => 'nginx',
-    'debian'  => 'www-data',
-    'windows' => 'nobody',
-  }
-  
   File {
     owner => $owner,
     group => $group,
@@ -36,7 +26,7 @@ class nginx(
     content => template('nginx/nginx.conf.erb'),
   }
   
-  file { "/etc/nginx/conf.d/default.conf":
+  file { "${confdir}/conf.d/default.conf":
     ensure => file,
     #source => 'puppet:///modules/nginx/default.conf',
     content => template('nginx/default.conf.erb'),
@@ -47,13 +37,9 @@ class nginx(
     enable => true,
   }
   
-  file { '/var/www':
+  file { $docroot:
     ensure => directory,
   }
-  
-  file { '${docroot}':
-    ensure => directory,
-  }  
   
   file { "${docroot}/index.html":
     ensure => file,
