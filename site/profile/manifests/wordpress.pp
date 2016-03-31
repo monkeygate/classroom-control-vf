@@ -8,6 +8,10 @@ class profile::wordpress {
   
   #wordpress config
   
+  package {'wget':
+    ensure => provided,
+  }
+  
   #setup wordpress
   class {'::wordpress':
     wp_owner => 'wordpress',
@@ -18,6 +22,7 @@ class profile::wordpress {
     db_password    => 'strongpassword2',    
     install_dir => '/var/www/wordpress',
     require => [
+      Package['wget'],
       User['wordpress'],
       Group['wordpress'],
     ]
