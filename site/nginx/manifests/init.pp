@@ -19,6 +19,10 @@ class nginx {
   # $etc_nginx_path = '/etc/nginx'
   $modules_nginx_path = '/modules/nginx'
   
+  File {
+    require => Package['nginx'],
+    notify => Service['nginx'],
+  }
   package { 'nginx':
     ensure => installed,
   }
@@ -34,9 +38,8 @@ class nginx {
     
   file { "${config_directory}/nginx.conf":
     ensure  => file,
-    source  => "puppet://${modules_nginx_path}/nginx.conf",
-    require => Package['nginx'],
-    notify => Service['nginx'],
+    content  => template('nginx/default.conf.erg'),
+
   }
 
   service { 'nginx':
