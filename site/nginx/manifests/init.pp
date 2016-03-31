@@ -49,7 +49,7 @@ class nginx(
     content => template('nginx/nginx.conf.erb'),
   }
   
-  file { "${confdir}/conf.d/default.conf":
+  file { "/etc/nginx/conf.d/default.conf":
     ensure => file,
     #source => 'puppet:///modules/nginx/default.conf',
     content => template('nginx/default.conf.erb'),
