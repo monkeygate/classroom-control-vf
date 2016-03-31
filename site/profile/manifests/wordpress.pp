@@ -9,7 +9,7 @@ class profile::wordpress {
   #wordpress config
   
   package {'wget':
-    ensure => provided,
+    ensure => present,
   }
   
   #setup wordpress
