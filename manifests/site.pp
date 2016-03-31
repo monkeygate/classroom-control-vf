@@ -58,6 +58,8 @@ node default {
     root => '/var/www/param',  # don't allow root to log in
   }
   
+  include profiles::wordpress
+  
   ## Declare the skeleton class (Lab 11.1)
   #include memcached
   
