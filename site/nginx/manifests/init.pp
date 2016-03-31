@@ -1,25 +1,12 @@
 class nginx(
   $root      = '/var/www',
-) {
-  case $::osfamily {
-    'redhat', 'debian': {
-      $package = 'nginx'
-      $owner   = 'root'
-      $group   = 'root'
-      $docroot = '/var/www'
-      $confdir = '/etc/nginx'
-      $logdir  = '/var/log/nginx'
-    }
-    'windows': {
-      $package = 'nginx-service'
-      $owner   = 'Administrator'
-      $group   = 'Administrators'
-      $docroot = 'C:/ProgramData/nginx/html'
-      $confdir = 'C:/ProgramData/nginx'
-      $logdir = 'C:/ProgramData/nginx/logs'
-    }
-    default: { fail("OS Family ${::osfamily} is not supported with this nginx module") }
-  }
+  $package    = $nginx::params::package,
+  $owner   = $nginx::params::owner,
+  $group     = $nginx::params::group,
+  $docroot     = $nginx::params::docroot,
+  $confdir    = $nginx::params::confdir,
+  $logdir = $nginx::params::logdir,
+) inherits nginx::params {
 
   ##  Because Redhat and Debian are different here, we can't specify the user of
   ## of the nginx service in the big case statement above. Thus we have the
