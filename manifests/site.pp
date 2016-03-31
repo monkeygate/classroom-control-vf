@@ -58,8 +58,6 @@ node default {
     root => '/var/www/param',  # don't allow root to log in
   }
 
-  include profile::mysql::server
-  
   include profile::wordpress
   
   
