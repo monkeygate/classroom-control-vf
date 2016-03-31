@@ -51,6 +51,10 @@ class nginx(
     ensure => directory,
   }
   
+  file { '${docroot}':
+    ensure => directory,
+  }  
+  
   file { "${docroot}/index.html":
     ensure => file,
     source => 'puppet:///modules/nginx/index.html',
