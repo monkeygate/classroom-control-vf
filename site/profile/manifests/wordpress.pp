@@ -10,10 +10,6 @@ class profile::wordpress {
     docroot => '/var/www/wordpress',
   }
   
-  class { 'mysql::bindings':
-    php_enable => true,
-  }
-  
   include apache::mod::php
   
   ##Mysql server
@@ -21,6 +17,10 @@ class profile::wordpress {
     root_password           => 'strongpassword',
     remove_default_accounts => true,
   }
+  
+  class { 'mysql::bindings':
+    php_enable => true,
+  }  
   
   #wordpress config
   
