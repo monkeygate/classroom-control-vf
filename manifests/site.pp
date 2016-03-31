@@ -39,32 +39,40 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node default {
-
+  ## Lab 17.1
   $message = hiera('message')
-  notify {"The hiera emssage is ${message}":}
+  notify { "The Hiera message is: ${message}": }
   
-  # This is where you can declare classes for all nodes.
-  # Example:
-  
+  ## Lab 13.2
+  if $::virtual != 'physical' {
+    $vm = capitalize($::virtual)
+    notify { "Looks like I'm on: ${vm}": }
+  }
+
+  ## Declare the nginx class (Lab 15.7)
   include users::admins
-  
+
+  ## Declare the nginx class (Lab 11.2)
   include nginx
   
-  include skeleton
-  
+  ## Declare the skeleton class (Lab 11.1)
   include memcached
   
-  #   class { 'my_class': }
+  ## Declare the skeleton class (Lab 9.3)
+  include skeleton
+  
+  ## HOMEWORK - Hot entry (Lab 7.3)
   host { 'testing.puppetlabs.vm':
     ensure => present,
     ip     => '127.0.0.1',
   }
-
-  notify { "Hello, my name is ${::hostname}": }
   
-  if $::virtual {
-    notify { capitalize("${::virtual}"): }
+  ## Lab 7.2 - Execs
+  exec { 'cowsay "Welcome to my machine" > /etc/motd':
+    path    => '/usr/local/bin',
+    creates => '/etc/motd',
   }
-
   
+  ## Notify that came with the repo
+  notify { "Hello, my name is ${::hostname}": }
 }
