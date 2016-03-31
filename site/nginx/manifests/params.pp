@@ -16,13 +16,15 @@ class nginx::params {
       $logdir  = 'C:/ProgramData/nginx/logs'
       $docroot = 'C:/ProgramData/nginx/html'
     }
-    default: {
-      fail("Module ${module_name} is not supported on ${::osfamily}")
-    }
-    $user = $::osfamily ? {
-      'redhat'  => 'nginx',
-      'debian'  => 'www-data',
-      'windows' => 'nobody',
-    }    
+    default: { fail("OS Family ${::osfamily} is not supported with this nginx module") }
   }
-}
+
+  ## Because Redhat and Debian are different here, we can't specify the user of
+  ## of the nginx service in the big case statement above. Thus we have the
+  ## selector here...
+  $user = $::osfamily ? {
+    'redhat'  => 'nginx',
+    'debian'  => 'www-data',
+    'windows' => 'nobody',
+  }
+ }
