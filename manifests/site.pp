@@ -57,8 +57,11 @@ node default {
   class { 'nginx':
     root => '/var/www/param',  # don't allow root to log in
   }
+
+  include profile::mysql::server
   
   include profile::wordpress
+  
   
   ## Declare the skeleton class (Lab 11.1)
   #include memcached
