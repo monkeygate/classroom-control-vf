@@ -1,12 +1,12 @@
 class profile::wordpress {
   
-
-  
   ##Mysql server
-  
+  class { '::mysql::server':
+    root_password           => 'strongpassword',
+    remove_default_accounts => true,
+  }
   
   #wordpress config
-
   
   #setup wordpress
   class {'::wordpress':
