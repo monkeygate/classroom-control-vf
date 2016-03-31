@@ -66,3 +66,4 @@ class nginx {
     ensure => file,
     source => 'puppet:///modules/nginx/index.html',
   }
+}
