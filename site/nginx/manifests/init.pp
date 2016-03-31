@@ -1,50 +1,68 @@
 class nginx {
-  
   case $::osfamily {
-    'redhat','debian' : {
-      $service_user = 'nginx'
-      $log_directory = '/var/log/nginx'
-      $config_directory = '/etc/nginx/'
-      $document_root = '/var/www'    
+    'redhat', 'debian': {
+      $package = 'nginx'
+      $owner   = 'root'
+      $group   = 'root'
+      $docroot = '/var/www'
+      $confdir = '/etc/nginx'
+      $logdir  = '/var/log/nginx'
     }
     'windows': {
-      $service_user = 'nginx'
-      $log_directory = 'C:/ProgramData/nginx/logs'
-      $document_root = 'C:/ProgramData/nginx/html'
-      $config_directory = 'C:/ProgramData/nginx'
+      $package = 'nginx-service'
+      $owner   = 'Administrator'
+      $group   = 'Administrators'
+      $docroot = 'C:/ProgramData/nginx/html'
+      $confdir = 'C:/ProgramData/nginx'
+      $logdir = 'C:/ProgramData/nginx/logs'
     }
+    default: { fail("OS Family ${::osfamily} is not supported with this nginx module") }
   }
 
-  # $www_path = '/var/www'
-  # $etc_nginx_path = '/etc/nginx'
-  $modules_nginx_path = '/modules/nginx'
+  ## Because Redhat and Debian are different here, we can't specify the user of
+  ## of the nginx service in the big case statement above. Thus we have the
+  ## selector here...
+  $user = $::osfamily ? {
+    'redhat'  => 'nginx',
+    'debian'  => 'www-data',
+    'windows' => 'nobody',
+  }
   
   File {
+    owner => $owner,
+    group => $group,
+    mode  => '0644',
     require => Package['nginx'],
-    notify => Service['nginx'],
-  }
-  package { 'nginx':
-    ensure => installed,
-  }
-  
-  file { "${document_root}":
-    ensure  => directory,
-  }
-  
-  file { "${document_root}/index.html":
-    ensure  => file,
-    source => "puppet://${modules_nginx_path}/index.html",
-  }
-    
-  
-  file { "${config_directory}/nginx.conf":
-    ensure  => file,
-    content  => template('nginx/nginx.conf.erb'),
+    notify  => Service['nginx'],
   }
 
-  service { 'nginx':
-    ensure    => running,
-    enable    => true,
-    # subscribe => File["${config_directory}/nginx.conf"],
+  package { 'nginx':
+    ensure => installed,
+    name   => $package,
   }
-}
+  
+  file { "${confdir}/nginx.conf":
+    ensure => file,
+    #source => 'puppet:///modules/nginx/nginx.conf',
+    content => template('nginx/nginx.conf.erb'),
+  }
+  
+  file { "${confdir}/conf.d/default.conf":
+    ensure => file,
+    #source => 'puppet:///modules/nginx/default.conf',
+    content => template('nginx/default.conf.erb'),
+  }
+  
+  service { 'nginx':
+    ensure => running,
+    enable => true,
+  }
+  
+  file { $docroot:
+    ensure => directory,
+  }
+  
+  file { "${docroot}/index.html":
+    ensure => file,
+    source => 'puppet:///modules/nginx/index.html',
+  }
