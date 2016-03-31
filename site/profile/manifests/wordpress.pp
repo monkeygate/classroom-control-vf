@@ -10,6 +10,9 @@ class profile::wordpress {
   
   #setup wordpress
   class {'::wordpress':
+    wp_owner => 'wordpress',
+    wp_group => 'wordpress',
+    
     Require => [
       User['wordpress'],
       Group['wordpress'],
