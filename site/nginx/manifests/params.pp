@@ -1,4 +1,4 @@
-class params {
+class nginx::params {
   case $::osfamily {
     'RedHat': {
        $httpd_user    = 'apache'
