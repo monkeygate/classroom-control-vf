@@ -13,7 +13,7 @@ class profile::wordpress {
     wp_owner => 'wordpress',
     wp_group => 'wordpress',
     install_dir => '/var/www/wordpress',
-    Require => [
+    require => [
       User['wordpress'],
       Group['wordpress'],
     ]
