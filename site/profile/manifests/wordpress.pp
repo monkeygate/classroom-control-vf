@@ -10,9 +10,7 @@ class profile::wordpress {
     docroot => '/var/www/wordpress',
   }
   
-  apache::mod::php { 'localhost':
-  #
-  }
+  include apache::mod::php
   
   ##Mysql server
   class { '::mysql::server':
