@@ -54,9 +54,9 @@ node default {
 
   ## Declare the nginx class (Lab 11.2)
   # include nginx
-  class { 'nginx':
-    root => '/var/www/param',  # don't allow root to log in
-  }
+  #class { 'nginx':
+  #  root => '/var/www/param',  # don't allow root to log in
+  #}
 
   include profile::wordpress
   
