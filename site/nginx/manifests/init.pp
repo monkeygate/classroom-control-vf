@@ -19,7 +19,7 @@ class nginx {
     default: { fail("OS Family ${::osfamily} is not supported with this nginx module") }
   }
 
-  ## Because Redhat and Debian are different here, we can't specify the user of
+  ##  Because Redhat and Debian are different here, we can't specify the user of
   ## of the nginx service in the big case statement above. Thus we have the
   ## selector here...
   $user = $::osfamily ? {
